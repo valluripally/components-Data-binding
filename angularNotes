@@ -1,0 +1,5 @@
+To pass data from parent to child , we need to declare properties in child to be accessible by parent, for that we use @input decorator to bind the property.
+
+We can use alias @input("alias") elementName and use alias to bind the property in parent.
+
+If we have to pass data from child to parent then we have to create a new EventEmitter which is generic type containing type we are listening to and we need to add @output to the property to make it listenable.
