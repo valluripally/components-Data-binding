@@ -1,5 +1,164 @@
-To pass data from parent to child , we need to declare properties in child to be accessible by parent, for that we use @input decorator to bind the property.
+components-parent child interaction
+directives- types
+pipes-types
+observables ,Promise difference
+Redux
+singleton service
 
-We can use alias @input("alias") elementName and use alias to bind the property in parent.
 
-If we have to pass data from child to parent then we have to create a new EventEmitter which is generic type containing type we are listening to and we need to add @output to the property to make it listenable.
+1.Every component has an HTML template that declares how that component renders.ng generate component compNmae -to craete component
+2.Use directives to perform a variety of tasks, such as dynamically modifying the DOM structure.
+3.Angular's declarative templates let you cleanly separate your application's logic from its presentation.
+4.Dependency injection lets you declare the dependencies of your TypeScript classes without taking care of their instantiation. 
+5.Components define areas of responsibility in the UI that let you reuse sets of UI functionality.
+6.Interpolation {{ }} lets you render the property value as text.
+7.! in typescript is a way to tell the compiler "this expression cannot be null or undefined".
+8.The @Input() decorator indicates that the property value passes in from the component's parent.
+9.Finally, to display a child as a child of parent,add the child selector element to parent. Pass the current product as input to the component using property binding.
+
+10.The child component needs to notify and pass the data to the parent component. The child needs to emit an event.
+11.The RouterLink directive helps you customize the anchor element. 
+12.ActivatedRoute is specific to each component that the Angular Router loads. ActivatedRoute contains information about the route and the route's parameters.By injecting ActivatedRoute, you are configuring the component to use a service.
+13.pipes to transform strings, currency amounts, dates, and other data for display. Pipes are simple functions to use in template expressions to accept an input value and return a transformed value.
+14.ng g service serviceName - to create a service.
+15.All the services that needs to be used in the Class needs to be added as param in constructor.
+16.the variable life depends on scope. Once refreshed they get initialised ;
+17.Angular HttpClient is a built-in way to fetch data from external APIs and provide them to your application as a stream.
+18.Streams are useful because they make it easy to transform the returned data and make modifications to the way you request that data.
+19.To use Angular's HttpClient, you must configure your application to use HttpClientModule.
+20.Angular's HttpClientModule registers the providers your application needs to use the HttpClient service throughout your application.
+21. What are providers??
+22.The async pipe subscribes to an Observable or Promise and returns the latest value it has emitted. When a new value is emitted, the async pipe marks the component to be checked for changes. When the component gets destroyed, the async pipe unsubscribes automatically to avoid potential memory leaks. When the reference of the expression changes, the async pipe automatically unsubscribes from the old Observable or Promise and subscribes to the new one.
+23.A component instance has a lifecycle that starts when Angular instantiates the component class and renders the component view along with its child views. 
+24.The lifecycle ends when Angular destroys the component instance and removes its rendered template from the DOM. 
+25.Each interface defines the prototype for a single hook method, whose name is the interface name prefixed with ng
+26.The OnInit interface has a hook method named ngOnInit()
+27.The hooks give you the opportunity to act on a component or directive instance at the appropriate moment, as Angular creates, updates, or destroys that instance.
+28. If the parent component's class relies on the child component's class and to establish the parent-child relationship of the components  within each components respective class,When the parent component class requires that kind of access, inject the child component into the parent as a ViewChild.
+29.A parent component and its children share a service whose interface enables bi-directional communication within the family.
+30.ng-template is an Angular element that is used for rendering HTML in a template. However, it is not rendered directly on DOM. If you include an ng-template tag to a template, the tag and the content inside it will be replaced by comment upon render.
+31.Angular helps create reactive single page application.
+32.Javascript changes dom on load of new html.
+33.Node.js is used by CLI to bundle and optimise the project and npm to manage dependencies.
+34.typescript is super set of javascript with strict type. So, it helps write robust code during writing code even before compiling.
+35. Typescript cant be run in browser so it is compiled to javascript using cli.
+36. It adds static typing to js. Js is dynamically typed.
+37.npx tsc - to compile ts to js.
+38. ts -basic types:
+
+    Primitives:number, string, boolean, null, undefined
+    Complex types: arrays,objects
+
+     array defining -{ let items :string[]}
+     object defining - let person :{
+       name:string,
+       age:number
+        }
+39: Type inference - ts tries to understand which type is being used by looking at type of value being assigned first.
+       so let a ='test'
+           a= 14 - gives error because it considers type of a to be string so it shows error when assigning a number. We can use tyoe inference feature by directly initialising a variable while declaring it.
+40. If we want a variable to use different types we can use union
+         let b:string|number
+    b will accept both string and number 
+41. we can use type keyword to create alias 
+       type Person ={
+        name:string,
+        age:number
+       }
+     let person:Person ={name:'Deepu',
+                          age:25
+                          }
+42. We can use generics in typescript in functions instead of using type any because that will allow to use all typescript features because using any will fail all of that.
+       function inter<T>(array:T[],T){
+             let a1=[T,...array]
+return a1;
+}                 
+            inter([1,2,3],-1)
+        a1[0].split(''); - this will cause an issue because using type inference ts knows the type is number.
+43.Class in ts is same as java. they have properties and methods and can be private or public.
+44. interface Human {
+          firstName:string;
+          age:number;
+          greet:()=> void;
+          }
+
+     let shree:Human;
+     shree ={
+     firstName:'sai',
+     age:'25',
+     greet(){
+       console.log(firstName);
+      }
+      }
+
+45. class can implement interface.
+
+    class item implements Human{
+          firstName:string;
+          age:number;
+          greet:(){
+        }
+} 
+
+If we want to make sure that you need to follow some structure or require an object you can implement an interface that will force to use all the properties and methods by all the implementing classes.
+
+46.index.html is the actual single page that is rendered by the CLI.Now when angular bundles the code during ng serve it adds certain scripts to the index.html which are visible in the browser and gets executed. Now that bundle contains the info as what should be embedded in <app-root>
+main.ts -  this file is the first file to get executed. It contains the app-module which is pointed to app.module.ts , now because this file has bootstrap ,it tells angular what to load.
+
+
+47.Decorators are typescript fetaure which allows you to enhance elements in the code.
+48.Angular uses componnets to build webpages and use modules to bundle different pieces(components into packages).it gives information to angular which features my app has and use.
+49. We can use selectors like attriute and class css.
+50.Databinding = communication 
+
+    String Interpolation - {{}}
+    Property binding (['property']="data")
+    event binding [(event)="expression"] (click)="functionName()"
+    2 way binding =([(ngModel)] ="data")
+
+51. Anything that can output a string can be placed in interpollation.
+52. property binding is when we bind an attribute with property to dynamically change the behaviour. ex: [disabled]="booleanFlag"
+53. directives are instructions in the DOM.Ex:Components are directives, they are directives with template. Directives without templates are there.
+54. Directive types 
+    1. structural directives :They change the structure of the dom. ex: *ngIf , * repesents structural directives.
+    2. attribute directives  : They dont have a star . Ex:ngStyle ,ngClass
+
+
+
+
+55. we can have *ngIf with else condition in template as
+
+      <p *ngIf="serverCreated;else noServer">Server name is created . Server name is {{serverName}}</p>
+       <ng-template #noServer>
+         <p>
+          No server is created 
+         </p>
+       </ng-template>
+   
+56. <div *ngFor="let item of Items; let i=index">{{item}}</div>--let i=index to track by index
+
+57.To pass data from parent to child , we need to declare properties in child to be accessible by parent, for that we use @input decorator to bind the property.
+
+58.We can use alias @input("alias") elementName and use alias to bind the property in parent.
+
+59.If we have to pass data from child to parent then we have to create a new EventEmitter which is generic type containing type we are listening to and we need to add @output to the property to make it listenable.
+
+60.angular to make sure css applied in one component does not effect other component , it adds a unique attribute specific to component to all the dom elemnets of a component. It does that for every component to identify what style to be applied based on the attribute it adds along with the styled element.
+Angular emulates shawdow dom in this way.
+
+61 We can override angular's default encapsulation by adding encapsulation :ViewEncapsulation.none in @Component decorator. once we define encapsulation as none then all styles are applied globally.
+emulated is default angular option. We can also use Shadowdom as an option for same behavior as emulated  but it is not supported by all browsers.
+
+
+62. we can also use localreference to pass the data and we can use that local reference throughout the template, they cannot be used in controller but we can pass them to controller as parameters using functions in the template.
+63. we can place localrefernce to any html element and they hold refernce to entire elemnt and not its value. Basically they r very useful in accessing an elemnt and using it in the template.
+64.
+
+
+
+
+
+
+
+
+
