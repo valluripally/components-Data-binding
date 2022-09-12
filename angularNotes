@@ -152,7 +152,28 @@ emulated is default angular option. We can also use Shadowdom as an option for s
 
 62. we can also use localreference to pass the data and we can use that local reference throughout the template, they cannot be used in controller but we can pass them to controller as parameters using functions in the template.
 63. we can place localrefernce to any html element and they hold refernce to entire elemnt and not its value. Basically they r very useful in accessing an elemnt and using it in the template.
-64.
+64. We can also use @ViewChild to access the localref element in template .
+
+65. If we pass some data directly between the same component selectors, angular ignores it, but when you want to embed data in between componnet selectors, we need to use ng-content in the actual template and write content in the template where selctor is being called.
+
+66. when angular instantiates the component it goes through some steps and also allows us to hook into these and execute code.
+     They r the life cycle hooks.
+
+      ngOnChanges - called after initialisation and also after everytime anything with @input changes.
+
+      ngOnInit - called after initialisation and executes after constructor.
+
+     ngdoCheck - called during every change detection. (it includes any events)
+
+     ngAfterContentInit - called after content(ng-content) gets projected into view.
+
+     ngAfterContentChecked - called after projected content has been checked and after every change detection .
+
+     ngAfterViewInit - called once view  and its child views has been rendered .
+
+      ngAfterViewChecked - called once view  and its child views has been checked.
+
+      ngOnDestroy - called right before angular destroys object.
 
 
 
