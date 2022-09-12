@@ -176,6 +176,15 @@ emulated is default angular option. We can also use Shadowdom as an option for s
       ngOnDestroy - called right before angular destroys object.
 
 
+67.              Directives
+
+                1. attribute directives = they r called attribute directives because they sit on elements just like attributes and effect only specific elemnet behaviour.(ngStyle,ngClass etc)
+
+                2.Structural directives =they do same as above but  also modify the dom structure  (*ngIf,*ngFor.etc)
+68. we cannot have  2structural directives on same element.
+
+69.
+
 
 
 
