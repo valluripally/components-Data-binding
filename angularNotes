@@ -183,7 +183,26 @@ emulated is default angular option. We can also use Shadowdom as an option for s
                 2.Structural directives =they do same as above but  also modify the dom structure  (*ngIf,*ngFor.etc)
 68. we cannot have  2structural directives on same element.
 
-69.
+69.   We can create a directive using ng g d directiveName , we need to add it in declarations in module.ts or we can manually create one by creating a class and add @Directive({ selector :'[camelCaseDirectiveName]'}) .
+70. For directive to work it needs access to the elemnet it is being added to, so angular injects it when you pass a parameter in the constructor as ELemntRef. and we can set property to this parameter passed in ngOnInit()
+71. But better way is to use renderer :Renderer2 which has many methods defined to it and we can pass our parameter of ElementRef into renderer.
+    Using Renderer2 is better appraoch because angular is not limited to running in the web browsers, it also works with service workers which do not have a dom and if we are directly trying to access dom elemnts it could lead to errors. So, better appraoch is to use Renderer2
+
+72. We can use @HostListener to react to events on the element and make changes as per required.
+73.we can use @HostBinding to bind to host property and make them work as required.
+74.we can use property binding for custom directives.
+
+75.  structural directives bhind the scene gets converted into this way.
+     <div *ngIf="condition"></div> =====  <ng-template [ngIf]="condition"></ng-template>
+
+76. We can create custom structural directives also , here we need to pass templateRef(what need to be passed) and viewContainerRef(where it needs to be passed) and we need to craete a @input property for propert binding with same name as directive name.
+
+77.
+                  
+
+      
+        
+
 
 
 
