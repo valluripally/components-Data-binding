@@ -197,7 +197,29 @@ emulated is default angular option. We can also use Shadowdom as an option for s
 
 76. We can create custom structural directives also , here we need to pass templateRef(what need to be passed) and viewContainerRef(where it needs to be passed) and we need to craete a @input property for propert binding with same name as directive name.
 
-77.
+77.  Services.
+     sometimes, it becomes very difficult to have componnet interaction happen through property and event binding. So, here we can create a class like name.service.ts and write common methods here.
+Now, how can the actual class know and use it , (it happens through dependency injection) where in angular identifies the instance that we add in the constructor and create the instnceof service for the class. But for it to know how and where injection has to happen we need to provide in class Providers:[service]. Once this is done we can use the service in the class.
+
+78.  So, if we use a refernce object in Service and use it in class we get access to the refernce(i.e we will get the exact same object and use in the class)
+79.  In angular it follows hierrachial injection that is if we are injecting a service into parent componnet, angular injects it to the parent and corresponding child and there corresponding childs and so on.So injection happens from top to bottom.
+80. So, if we want to use same instance for all the parents and child we only need to give the service in parent providers and corresponding constructor we need to pass the parameter of the Service. In all the childs if we just give it in constructor it would suffice and we can access the same instance of service throughout the project.
+
+81. But, if we also provide service in providers of child class then the instance that gets created overrides the injector from parent, so in this case we will have parent instance and child instance seperately. 
+
+82. Based on the application we can choose if we want to use single instance or create instance for each child.
+
+83.  Highest level of hierrachy injection s not app-componnet instead in app.module.ts where we can specify the service in the Providers, doing that makes sure we can use same instance of service throughout the project unless you override it by adding it in providers in child component.
+
+84. We can inject service into service but both the service needs to be in the PRoviders array in the app.module,ts that is it has to be globally usable.
+85. And also we need to specify @Injectible() decorator on the service, it helps angular unerstands that we can inject some other service into this service. It is good to add @injectible() for all the services.
+86. Now we can have componnets interating with each other without using complicated eventEmitting instead we can use a service. In service we can create a new EventEmitter, in service  outputEvent =new EventEmitter<T>();
+Now in a component that u want to emit the status, we can use this.service.outputEvent.emit(status) and in the component u want to listen to event we can directly use this.service.outputEvent.subscribe((status:string)=>alert('status is':status));
+87.In new versions to use a service globally instead of providing them in the providers array of NgModule we can also directly mention it on the service-@Injectable({providedIn: 'root'}). this helps angular to lazy load and also to use the service in whatever level you want it to be avalable(i.e globally or for one hierarchy etc)
+88.This can lead to a better performance and loading speed - though this really only kicks in for bigger services and apps in general.
+89.
+
+  
                   
 
       
