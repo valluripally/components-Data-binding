@@ -219,6 +219,24 @@ Now in a component that u want to emit the status, we can use this.service.outpu
 88.This can lead to a better performance and loading speed - though this really only kicks in for bigger services and apps in general.
 89.
 
+
+
+110. <router-outlet></router-outlet> - it is a directive that tells angular to display the component based on the route given in the path.
+111. we need to define const appRoutes:Routes=[
+{ path='user',component:UserComponent}]
+and we have yto add RouterModule.forRoot(appRoutes) to get access to the routing functionality and also to the paths to work.
+112. we can use routerLink ='/user' to pass the component data, advantage with routerLink is that it catches the click and instead of reloading it analyses if there is any path matching that we defined and diaplay corresponding template of component.
+113. routerLink if we want absolute path we have to give  "/", but if we need relatibve path(nested routing ) we can use "path" without a / and ../user would go remove one level up and append user as path to that route.
+114. routerLinkActive helps identifying the path and setting the class we want it to add when path is selected. But default path always remains in all the paths so, to remove that we specify "[routerLinkActiveOptins]"={exact:true}
+115. If we want to trigger a route from the ts file , we need to inject router:Router in constructor and 
+this.router.navigate(['/user']) and to add rellative paths we can inject route: ActivatedRoute and pass this.router.navigate(['path'],{relativeTo:this.route})
+116. To pass parameters in the route we need to define it in the path like path='user/:id'
+117. To access route param in any componnet we need to inject a route:ActivatedRoute , val= this.route.snapshot.param(id)
+118. But if we want to change the path while being on same componnet , even when path gets loaded the componnet remain same because angular will check if the componnet is not loaded and loads it, but since its already there it doesnot reload the componnet. 
+119. to use that we will have to use the observable. route:ActivatedRoute ,
+   this route.params.subscribe((params:Params)=> user.id=params.id), route.snapshot is used for first time loading of the component.
+120
+
   
                   
 
