@@ -4,6 +4,8 @@ pipes-types
 observables ,Promise difference
 Redux
 singleton service
+form builder
+
 
 
 1.Every component has an HTML template that declares how that component renders.ng generate component compNmae -to craete component
@@ -217,9 +219,94 @@ Now, how can the actual class know and use it , (it happens through dependency i
 Now in a component that u want to emit the status, we can use this.service.outputEvent.emit(status) and in the component u want to listen to event we can directly use this.service.outputEvent.subscribe((status:string)=>alert('status is':status));
 87.In new versions to use a service globally instead of providing them in the providers array of NgModule we can also directly mention it on the service-@Injectable({providedIn: 'root'}). this helps angular to lazy load and also to use the service in whatever level you want it to be avalable(i.e globally or for one hierarchy etc)
 88.This can lead to a better performance and loading speed - though this really only kicks in for bigger services and apps in general.
-89.
+89. array.slice() craetes copy of the array.
+90. spread operator [...var] - converts into list
+           Forms
+
+91.  angular gives a ts or js object representation of the form containing values and corresponding validators etc. making it easy to access values and to see state of the form and work with it.
+     {
+      value:{
+        name:'sai',
+        email:'sai2gmail.com'
+         },
+       valid:true
+        }
+92. angular gives 2 approaches 
+      1. Template driven form: angular allows u to define your form in template(html) and angular infers the form object from dom.
+      2.Reactive form : here we define the structure of the form in the typescript file and also write html code and manually connect them both, this helps to control every minute detail in the form 
+93. In template driven form, when angular finds <form> it will act as if a selector for a directive and understands it has to create an object.
+94. For Forms to work we need to define FormsModule in the ngModule imports
+95. For angular to understand that these r the elements of the form which it needs to convert into object elements, we need to add ngModel (not for 2 way binding here but a control of the form) and name for the element.
+96. a button in form of type submit when clicked triggers html default behaviour and it triggers js submit event and angular makes use of it , so for that we need to add <form (ngSubmit)="">
+97. we can add localref on the form and pass it into the ngSubmit method as param so we now can access the form element but in order for angular to get access to the form w eneed to give #localref  ="ngForm"
+
+98 we can access the localref using @viewchild('localref') data:NgForm in the template.
+99.To access validators of a specific element in the form we need to create  alocalref ="ngModel" this gives info about the control and use localref.invalid or .untouuched.
+100. we can also use propert binding of ngModel to set default value and also give the control of element, we can also use ngModel for 2 way binding.
+
+101. we can access the fields in groups and check their validity in groups by using ngModelgroup="string name" using this string we can access the group in the form object that gets created
+
+102.On the local reference of the form in template we can use signupform.setValue({
+here we have to represent exact complete object of the form and set the defaults or changes 
+})
+
+102.On the local reference of the form in template we can use signupform.form.patchValue({
+here we have to define the hierachial object with its corresponding field to change just required fields.
+})
+
+103.we can user localrefofForm.reset() to reset the form both values and property(ng-valid,ng-dirty etc)
+
+104. In reactive approach we need to create a variable signUpForm:FormGroup (because in template driven we defined as NgForm which is like a wrapper of form-group) in angular everything in template will be form-group controls that it uses.
+
+105. we need to import ReactiveFormsModule in NgModule imports to use reactive forms and FormsModule for template driven forms
+
+106.In ts file for the reactive form we need to create signUpForm =new FormGroup({})  - to set empty form
+
+ this.signUpform =new FormGroup({
+      'username' :new FormControl(null),
+      'email':new FormControl(null),
+      'gender':new FormControl('female') 
+
+    })  -- to create the form and add controls with null and default values.
+
+107. Once we do this, angular does not know if the form in the template has to link with the form in the ts file.
+
+108. we need to set property binding on form <form [formGroup]="signUpform">
+     we need to specify directive formcontrolName ='username'
+     we use (ngSubmit)=fn() to submit form 
+     in order to use validators we cannot add required like we did in template driven forms instead we need to add them in the template like
+ this.signUpform =new FormGroup({
+      'username' :new FormControl(null,Validators.required),
+      'email':new FormControl(null,[Validators.required,Validators.email]),
+      'gender':new FormControl('female') 
+
+    })
+
+     we can get access to item in the ts in template by using signUpform.get('username').valid to check if its valid
+     We can also craete form group in ts and specify path in template 
+
+ this.signUpform =new FormGroup({
+       'userData':new FormGroup({
+   'username' :new FormControl(null,Validators.required),
+      'email':new FormControl(null,[Validators.required,Validators.email]),
+})
+     
+      'gender':new FormControl('female') 
+
+    })
 
 
+to get data in template we need to mention formGroupName="userData" and to acces date we use 
+ signUpForm.get(userData.username)
+
+109.  We can create custom validator in reactive forms. we have to have a function 
+           fn(control:FormControl):{[s:string]:boolean}{
+                code we want to check for fail condition and return 
+                  {'stringName',true}
+            }
+             else
+          we have to return null not the stringName with boolean
+110. To use this we need to add it in validators like this.fn.bind(this)--- tells to take it from this class.we should only pass reference not the function.
 
 110. <router-outlet></router-outlet> - it is a directive that tells angular to display the component based on the route given in the path.
 111. we need to define const appRoutes:Routes=[
@@ -237,7 +324,7 @@ this.router.navigate(['/user']) and to add rellative paths we can inject route: 
    this route.params.subscribe((params:Params)=> user.id=params.id), route.snapshot is used for first time loading of the component.
 120
 
-  
+
                   
 
       
